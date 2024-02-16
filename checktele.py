@@ -28,7 +28,6 @@ que = Queue()
 
 
 def check_user(username):
-    url = "https://t.me/" + str(username)
     urll = "https://fragment.com/username/" + str(username)
     headers = {
         "User-Agent": generate_user_agent(),
@@ -37,13 +36,9 @@ def check_user(username):
         "Accept-Language": "ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7"
     }
 
-    response = requests.get(url, headers=headers)
-    responsee = requests.get(urll, headers=headers)
+    responsee = requests.get(urll)
     if responsee.text.find('Unavailable') >= 0:
-        if response.text.find('If you have <strong>Telegram</strong>, you can contact <a class="tgme_username_link"') >= 0:
-            return "Available"
-        else:
-            return "Unavailable"
+        return "Available"
     else:
         return "Unavailable"
 
