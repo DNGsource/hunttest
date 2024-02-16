@@ -29,6 +29,7 @@ que = Queue()
 
 def check_user(username):
     url = "https://t.me/"+str(username)
+    urll = "https://fragment.com/username/"+str(username)
     headers = {
         "User-Agent": generate_user_agent(),
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
@@ -36,8 +37,12 @@ def check_user(username):
         "Accept-Language": "ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7"}
 
     response = requests.get(url, headers=headers)
-    if response.text.find('If you have <strong>Telegram</strong>, you can contact <a class="tgme_username_link"') >= 0:
+    responsee = requests.get(url, headers=headers)
+    if responsee.text.find('Unavailable') >= 0:
+        if response.text.find('If you have <strong>Telegram</strong>, you can contact <a class="tgme_username_link"') >= 0:
         return "Available"
+        else:
+        return "Unavailable"
     else:
         return "Unavailable"
 
@@ -75,6 +80,7 @@ def gen_user(choice):
         d = random.choices(a)
         s = random.choices(b)
         f =  [c[0], d[0], s[0], s[0], s[0]]
+        random.shuffle(f)
         username = ''.join(f)
         if username in banned[0]:
             c = d =random.choices(a)
@@ -89,6 +95,7 @@ def gen_user(choice):
         d = random.choices(e)
         s = random.choices(b)
         f =  [c[0], d[0], s[0], s[0], s[0],s[0]]
+        random.shuffle(f)
         username = ''.join(f)
         if username in banned[0]:
             c = d =random.choices(a)
